@@ -19,7 +19,7 @@ public class UseCase10BookingCancellation {
     // Inventory count for room types
     static Map<String, Integer> roomInventory = new HashMap<>();
     // Active bookings
-    static Map<String, Booking> bookings = new HashMap<>();
+    static Map<String, Booking1> bookings = new HashMap<>();
     // Stack to track recently released room IDs (LIFO)
     static Stack<String> rollbackStack = new Stack<>();
 
@@ -31,8 +31,8 @@ public class UseCase10BookingCancellation {
         roomInventory.put("Double", 3);
 
         // Simulate some bookings
-        bookings.put("B001", new Booking("B001", "R101", "Alice"));
-        bookings.put("B002", new Booking("B002", "R102", "Bob"));
+        bookings.put("B001", new Booking1("B001", "R101", "Alice"));
+        bookings.put("B002", new Booking1("B002", "R102", "Bob"));
 
         System.out.println("Welcome to Booking Cancellation System");
 
@@ -73,7 +73,7 @@ public class UseCase10BookingCancellation {
             return;
         }
         System.out.println("Current Bookings:");
-        for (Booking b : bookings.values()) {
+        for (Booking1 b : bookings.values()) {
             System.out.println("ID: " + b.bookingId + ", Room: " + b.roomId + ", Guest: " + b.guestName +
                     ", Cancelled: " + b.isCancelled);
         }
@@ -92,22 +92,22 @@ public class UseCase10BookingCancellation {
             return;
         }
 
-        Booking booking = bookings.get(bookingId);
+        Booking1 booking1 = bookings.get(bookingId);
 
-        if (booking.isCancelled) {
+        if (booking1.isCancelled) {
             System.out.println("Booking is already cancelled.");
             return;
         }
 
         // Perform rollback: release room ID
-        rollbackStack.push(booking.roomId);
+        rollbackStack.push(booking1.roomId);
 
         // Restore inventory count (assuming room type can be inferred from room ID, simplified here)
-        String roomType = booking.roomId.startsWith("R1") ? "Single" : "Double";
+        String roomType = booking1.roomId.startsWith("R1") ? "Single" : "Double";
         roomInventory.put(roomType, roomInventory.getOrDefault(roomType, 0) + 1);
 
         // Update booking history
-        booking.isCancelled = true;
+        booking1.isCancelled = true;
 
         System.out.println("Booking " + bookingId + " cancelled successfully.");
         System.out.println("Released Room ID: " + rollbackStack.peek());
