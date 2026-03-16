@@ -22,18 +22,18 @@ public class UseCase6RoomAllocationService {
         RoomAllocationService allocationService = new RoomAllocationService(inventory);
 
         // Guests submit booking requests
-        queue.addRequest(new Reservation("Rahul", "Single Room"));
-        queue.addRequest(new Reservation("Priya", "Double Room"));
-        queue.addRequest(new Reservation("Arjun", "Suite Room"));
-        queue.addRequest(new Reservation("Meena", "Single Room"));
+        queue.addRequest(new RReservation("Rahul", "Single Room"));
+        queue.addRequest(new RReservation("Priya", "Double Room"));
+        queue.addRequest(new RReservation("Arjun", "Suite Room"));
+        queue.addRequest(new RReservation("Meena", "Single Room"));
 
         System.out.println("\nProcessing Booking Requests...\n");
 
         // Process queue
         while (!queue.isEmpty()) {
 
-            Reservation reservation = queue.getNextRequest();
-            allocationService.allocateRoom(reservation);
+            RReservation RReservation = queue.getNextRequest();
+            allocationService.allocateRoom(RReservation);
         }
 
         System.out.println("\nFinal Allocations:");
@@ -70,18 +70,18 @@ class Reservation {
  */
 class BookingRequestQueue {
 
-    private Queue<Reservation> queue;
+    private Queue<RReservation> queue;
 
     public BookingRequestQueue() {
         queue = new LinkedList<>();
     }
 
-    public void addRequest(Reservation reservation) {
-        queue.offer(reservation);
-        System.out.println("Booking request added for " + reservation.getGuestName());
+    public void addRequest(RReservation RReservation) {
+        queue.offer(RReservation);
+        System.out.println("Booking request added for " + RReservation.getGuestName());
     }
 
-    public Reservation getNextRequest() {
+    public RReservation getNextRequest() {
         return queue.poll();
     }
 
@@ -142,14 +142,14 @@ class RoomAllocationService {
         usedRoomIds = new HashSet<>();
     }
 
-    public void allocateRoom(Reservation reservation) {
+    public void allocateRoom(RReservation RReservation) {
 
-        String roomType = reservation.getRoomType();
+        String roomType = RReservation.getRoomType();
 
         if (inventory.getAvailability(roomType) <= 0) {
 
             System.out.println("Booking failed for " +
-                    reservation.getGuestName() +
+                    RReservation.getGuestName() +
                     " (No " + roomType + " available)");
 
             return;
@@ -166,7 +166,7 @@ class RoomAllocationService {
         inventory.decrement(roomType);
 
         System.out.println("Reservation confirmed for " +
-                reservation.getGuestName() +
+                RReservation.getGuestName() +
                 " | Room ID: " + roomId);
     }
 

@@ -49,38 +49,38 @@ class Reservation {
 
 // Stores confirmed reservations in insertion order
 class BookingHistory {
-    private List<Reservation> history;
+    private List<RReservation> history;
 
     public BookingHistory() {
         history = new ArrayList<>();
     }
 
     // Add confirmed reservation
-    public void addReservation(Reservation reservation) {
-        history.add(reservation);
+    public void addReservation(RReservation RReservation) {
+        history.add(RReservation);
     }
 
     // Retrieve all reservations
-    public List<Reservation> getAllReservations() {
+    public List<RReservation> getAllReservations() {
         return history;
     }
 }
 
 // Generates reports from booking history
 class BookingReportService {
-    private BookingHistory bookingHistory;
+    private BookingHistory1 bookingHistory1;
 
-    public BookingReportService(BookingHistory bookingHistory) {
-        this.bookingHistory = bookingHistory;
+    public BookingReportService(BookingHistory1 bookingHistory1) {
+        this.bookingHistory1 = bookingHistory1;
     }
 
     // Print all reservations
     public void generateFullReport() {
         System.out.println("==== Full Booking Report ====");
-        for (Reservation r : bookingHistory.getAllReservations()) {
+        for (RReservation r : bookingHistory1.getAllReservations()) {
             System.out.println(r);
         }
-        System.out.println("Total Reservations: " + bookingHistory.getAllReservations().size());
+        System.out.println("Total Reservations: " + bookingHistory1.getAllReservations().size());
         System.out.println("=============================");
     }
 }
@@ -88,18 +88,18 @@ class BookingReportService {
 // Main class simulating Use Case 8
 public class UseCase8BookingHistoryReport {
     public static void main(String[] args) {
-        BookingHistory bookingHistory = new BookingHistory();
-        BookingReportService reportService = new BookingReportService(bookingHistory);
+        BookingHistory1 bookingHistory1 = new BookingHistory1();
+        BBookingReportService reportService = new BBookingReportService(bookingHistory1);
 
         // Simulate confirmed bookings
-        Reservation res1 = new Reservation(101, "Alice", "Deluxe", "2026-03-20", "2026-03-22");
-        Reservation res2 = new Reservation(102, "Bob", "Standard", "2026-03-21", "2026-03-23");
-        Reservation res3 = new Reservation(103, "Charlie", "Suite", "2026-03-22", "2026-03-25");
+        RReservation res1 = new RReservation(101, "Alice", "Deluxe", "2026-03-20", "2026-03-22");
+        RReservation res2 = new RReservation(102, "Bob", "Standard", "2026-03-21", "2026-03-23");
+        RReservation res3 = new RReservation(103, "Charlie", "Suite", "2026-03-22", "2026-03-25");
 
         // Add reservations to history
-        bookingHistory.addReservation(res1);
-        bookingHistory.addReservation(res2);
-        bookingHistory.addReservation(res3);
+        bookingHistory1.addReservation(res1);
+        bookingHistory1.addReservation(res2);
+        bookingHistory1.addReservation(res3);
 
         // Admin generates report
         reportService.generateFullReport();

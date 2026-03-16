@@ -18,9 +18,9 @@ public class UseCase5BookingRequestQueue {
         BookingRequestQueue queue = new BookingRequestQueue();
 
         // Guest booking requests
-        Reservation r1 = new Reservation("Rahul", "Single Room");
-        Reservation r2 = new Reservation("Priya", "Double Room");
-        Reservation r3 = new Reservation("Arjun", "Suite Room");
+        RReservation r1 = new RReservation("Rahul", "Single Room");
+        RReservation r2 = new RReservation("Priya", "Double Room");
+        RReservation r3 = new RReservation("Arjun", "Suite Room");
 
         // Add requests to queue
         queue.addRequest(r1);
@@ -67,16 +67,16 @@ class Reservation {
  */
 class BookingRequestQueue {
 
-    private Queue<Reservation> requestQueue;
+    private Queue<RReservation> requestQueue;
 
     public BookingRequestQueue() {
         requestQueue = new LinkedList<>();
     }
 
     // Add booking request
-    public void addRequest(Reservation reservation) {
-        requestQueue.offer(reservation);
-        System.out.println("Booking request added for " + reservation.getGuestName());
+    public void addRequest(RReservation RReservation) {
+        requestQueue.offer(RReservation);
+        System.out.println("Booking request added for " + RReservation.getGuestName());
     }
 
     // Display queued requests
@@ -85,7 +85,7 @@ class BookingRequestQueue {
         System.out.println("\nPending Booking Requests:");
         System.out.println("--------------------------");
 
-        for (Reservation r : requestQueue) {
+        for (RReservation r : requestQueue) {
             r.displayReservation();
         }
     }
